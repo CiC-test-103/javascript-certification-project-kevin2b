@@ -140,10 +140,10 @@ class LinkedList {
    */
   displayStudents() {
     // TODO
-    curr = this.head;
+    let curr = this.head;
     const names = [];
     while (curr !== null){
-      names.push(curr.getName());
+      names.push(curr.data.getName());
       curr = curr.next;
     }
     return names.join(", ");
@@ -156,10 +156,10 @@ class LinkedList {
    */
   #sortStudentsByName() {
     // TODO
-    curr = this.head;
+    let curr = this.head;
     const students = [];
     while (curr !== null){
-      students.push(curr);
+      students.push(curr.data);
       curr = curr.next;
     }
     //"a" will come before "Z" despite "a" > "Z" 
@@ -175,7 +175,7 @@ class LinkedList {
    */
   filterBySpecialization(specialization) {
     // TODO
-    return this.#sortStudentsByName.filter((curr) => curr.getSpecialization() === specialization);
+    return this.#sortStudentsByName().filter((student) => student.getSpecialization() === specialization);
   }
 
   /**
@@ -187,7 +187,7 @@ class LinkedList {
    */
   filterByMinAge(minAge) {
     // TODO
-    return this.#sortStudentsByName.filter((curr) => curr.getYear() >= minAge);
+    return this.#sortStudentsByName().filter((student) => student.getYear() >= minAge);
   }
 
   /**
@@ -198,8 +198,20 @@ class LinkedList {
   async saveToJson(fileName) {
     // TODO
     const fs = require('fs').promises;
+    const students = [];
+    let curr = this.head;
+    while(curr != null){
+      const student = {
+        name: curr.data.getName(),
+        year: curr.data.getYear(),
+        email: curr.data.getEmail(),
+        specialization: curr.data.getSpecialization(),
+      }
+      students.push(student);
+      curr = curr.next;
+    }
     try{
-      await fs.writeFile("./" + fileName, JSON.stringify(this), 'utf8');
+      await fs.writeFile("./" + fileName, JSON.stringify(students, null, "\t"), 'utf8');
     }
     catch(error){
       console.log("Error: ", error);
@@ -218,7 +230,11 @@ class LinkedList {
     const fs = require('fs').promises;
     try{
       const data = await fs.readFile("./" + fileName, 'utf8');
-      this = JSON.parse(data);
+      const studentArray = JSON.parse(data);
+      this.#clearStudents();
+      for(const student of studentArray){
+        this.addStudent(new Student(student.name, student.year, student.email, student.specialization));
+      }
     }
     catch(error){
       console.log("Error: ", error);
