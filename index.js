@@ -47,7 +47,8 @@ async function handleCommand(command) {
         console.log('Adding student...')
         const [name, year, email, specialization] = args
         // --------> WRITE YOUR CODE BELOW
-
+        studentManagementSystem.addStudent(new Student(name, year, email, specialization));
+        studentManagementSystem.displayStudents();
         // --------> WRITE YOUR CODE ABOVE
         break;
 
@@ -62,7 +63,9 @@ async function handleCommand(command) {
        */
       console.log('Removing student...')
       // --------> WRITE YOUR CODE BELOW
-      
+      const removeEmail = args[0];
+      studentManagementSystem.removeStudent(removeEmail);
+      studentManagementSystem.displayStudents();
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -75,7 +78,7 @@ async function handleCommand(command) {
        */
       console.log('Displaying students...')
       // --------> WRITE YOUR CODE BELOW
-
+      studentManagementSystem.displayStudents();
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -91,7 +94,14 @@ async function handleCommand(command) {
        */
       console.log('Finding student...')
       // --------> WRITE YOUR CODE BELOW
-      
+      const findEmail = args[0];
+      const student = studentManagementSystem.findStudent(findEmail);
+      if(student === -1){
+        console.log("Student does not exist");
+      }
+      else{
+        console.log(student.getString());
+      }
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -106,7 +116,8 @@ async function handleCommand(command) {
        */
       console.log('Saving data...')
       // --------> WRITE YOUR CODE BELOW
-
+      const saveFileName = args[0];
+      studentManagementSystem.saveToJson(saveFileName);
       // --------> WRITE YOUR CODE ABOVE
 
     case "load":
@@ -120,7 +131,9 @@ async function handleCommand(command) {
        */
       console.log('Loading data...')
       // --------> WRITE YOUR CODE BELOW
-
+      const loadFileName = args[0];
+      studentManagementSystem.loadFromJSON(loadFileName);
+      studentManagementSystem.displayStudents();
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -134,7 +147,7 @@ async function handleCommand(command) {
        */
       console.log('Clearing data...')
       // --------> WRITE YOUR CODE BELOW
-
+      studentManagementSystem = new LinkedList();
       // --------> WRITE YOUR CODE ABOVE
       break;
 
