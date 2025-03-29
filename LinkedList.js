@@ -37,6 +37,9 @@ class LinkedList {
    */
   constructor() {
     // TODO
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
   }
 
   /**
@@ -49,6 +52,17 @@ class LinkedList {
    */
   addStudent(newStudent) {
     // TODO
+    const node = new Node(newStudent);
+    if (this.length === 0){
+      this.head = node;
+      this.tail = node;
+    }
+    else{
+      this.tail.next = node;
+      this.tail = this.tail.next;
+    }
+    this.length++;
+    return;
   }
 
   /**
@@ -61,6 +75,33 @@ class LinkedList {
    */
   removeStudent(email) {
     // TODO
+    let curr = this.head;
+    let prev = null;
+    while(curr !== null && curr.data.getEmail() !== email){
+      prev = curr;
+      curr = curr.next;
+    }
+    if (curr === null){
+      return;
+    }
+
+    this.length--;
+    if (curr === this.head && curr === this.tail){
+      this.head = null;
+      this.tail = null;
+      return;
+    }
+
+    if (curr === this.head){
+      this.head = this.head.next;
+      return;
+    }
+
+    prev.next = curr.next;
+    if (curr === this.tail){
+      tail = prev;
+    }
+    return;
   }
 
   /**
@@ -70,7 +111,11 @@ class LinkedList {
    */
   findStudent(email) {
     // TODO
-    return -1
+    let curr = this.head;
+    while(curr !== null && curr.data.getEmail() !== email){
+      curr = curr.next;
+    }
+    return (curr === null)? -1 : curr.data;
   }
 
   /**
@@ -80,6 +125,9 @@ class LinkedList {
    */
   #clearStudents() {
     // TODO
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
   }
 
   /**
@@ -92,7 +140,13 @@ class LinkedList {
    */
   displayStudents() {
     // TODO
-    return "";
+    curr = this.head;
+    const names = [];
+    while (curr !== null){
+      names.push(curr.getName());
+      curr = curr.next;
+    }
+    return names.join(", ");
   }
 
   /**
@@ -102,7 +156,14 @@ class LinkedList {
    */
   #sortStudentsByName() {
     // TODO
-    return [];
+    curr = this.head;
+    const students = [];
+    while (curr !== null){
+      students.push(curr);
+      curr = curr.next;
+    }
+    //"a" will come before "Z" despite "a" > "Z" 
+    return students.sort((a,b) => a.getName().localeCompare(b.getName()));
   }
 
   /**
@@ -114,7 +175,7 @@ class LinkedList {
    */
   filterBySpecialization(specialization) {
     // TODO
-    return [];
+    return this.#sortStudentsByName.filter((curr) => curr.getSpecialization() === specialization);
   }
 
   /**
@@ -126,7 +187,7 @@ class LinkedList {
    */
   filterByMinAge(minAge) {
     // TODO
-    return [];
+    return this.#sortStudentsByName.filter((curr) => curr.getYear() >= minAge);
   }
 
   /**
@@ -136,6 +197,13 @@ class LinkedList {
    */
   async saveToJson(fileName) {
     // TODO
+    const fs = require('fs').promises;
+    try{
+      await fs.writeFile("./" + fileName, JSON.stringify(this), 'utf8');
+    }
+    catch(error){
+      console.log("Error: ", error);
+    }
   }
 
   /**
@@ -147,6 +215,14 @@ class LinkedList {
    */
   async loadFromJSON(fileName) {
     // TODO
+    const fs = require('fs').promises;
+    try{
+      const data = await fs.readFile("./" + fileName, 'utf8');
+      this = JSON.parse(data);
+    }
+    catch(error){
+      console.log("Error: ", error);
+    }
   }
 
 }
