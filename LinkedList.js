@@ -99,7 +99,7 @@ class LinkedList {
 
     prev.next = curr.next;
     if (curr === this.tail){
-      tail = prev;
+      this.tail = prev;
     }
     return;
   }
