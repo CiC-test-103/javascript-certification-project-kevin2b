@@ -23,7 +23,7 @@ function main() {
       - remove [email]: Remove a student by email
       - display: Show all students
       - find [email]: Find a student by email
-      - save: Save the current linked list to the specified file
+      - save [fileName]: Save the current linked list to the specified file
       - load [fileName]: Load a linked list from a file
       - clear: Clear the current linked list
       - q: Quit the terminal
@@ -119,7 +119,7 @@ async function handleCommand(command) {
       const saveFileName = args[0];
       studentManagementSystem.saveToJson(saveFileName);
       // --------> WRITE YOUR CODE ABOVE
-
+      break;
     case "load":
       /**
        * TODO:
@@ -147,7 +147,7 @@ async function handleCommand(command) {
        */
       console.log('Clearing data...')
       // --------> WRITE YOUR CODE BELOW
-      studentManagementSystem = new LinkedList();
+      studentManagementSystem.clearStudents();
       // --------> WRITE YOUR CODE ABOVE
       break;
 

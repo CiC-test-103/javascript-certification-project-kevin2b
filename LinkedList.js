@@ -123,7 +123,7 @@ class LinkedList {
    * EFFECTS:   Clears all students from the Linked List
    * RETURNS:   None
    */
-  #clearStudents() {
+  clearStudents() {
     // TODO
     this.head = null;
     this.tail = null;
@@ -231,7 +231,7 @@ class LinkedList {
     try{
       const data = await fs.readFile("./" + fileName, 'utf8');
       const studentArray = JSON.parse(data);
-      this.#clearStudents();
+      this.clearStudents();
       for(const student of studentArray){
         this.addStudent(new Student(student.name, student.year, student.email, student.specialization));
       }
