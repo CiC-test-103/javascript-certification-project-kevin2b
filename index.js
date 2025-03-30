@@ -48,7 +48,7 @@ async function handleCommand(command) {
         const [name, year, email, specialization] = args
         // --------> WRITE YOUR CODE BELOW
         studentManagementSystem.addStudent(new Student(name, year, email, specialization));
-        studentManagementSystem.displayStudents();
+        console.log(studentManagementSystem.displayStudents());
         // --------> WRITE YOUR CODE ABOVE
         break;
 
@@ -65,7 +65,7 @@ async function handleCommand(command) {
       // --------> WRITE YOUR CODE BELOW
       const removeEmail = args[0];
       studentManagementSystem.removeStudent(removeEmail);
-      studentManagementSystem.displayStudents();
+      console.log(studentManagementSystem.displayStudents());
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -78,7 +78,7 @@ async function handleCommand(command) {
        */
       console.log('Displaying students...')
       // --------> WRITE YOUR CODE BELOW
-      studentManagementSystem.displayStudents();
+      console.log(studentManagementSystem.displayStudents());
       // --------> WRITE YOUR CODE ABOVE
       break;
 
@@ -133,7 +133,7 @@ async function handleCommand(command) {
       // --------> WRITE YOUR CODE BELOW
       const loadFileName = args[0];
       studentManagementSystem.loadFromJSON(loadFileName);
-      studentManagementSystem.displayStudents();
+      console.log(studentManagementSystem.displayStudents());
       // --------> WRITE YOUR CODE ABOVE
       break;
 
