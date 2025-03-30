@@ -117,7 +117,7 @@ async function handleCommand(command) {
       console.log('Saving data...')
       // --------> WRITE YOUR CODE BELOW
       const saveFileName = args[0];
-      studentManagementSystem.saveToJson(saveFileName);
+      await studentManagementSystem.saveToJson(saveFileName);
       // --------> WRITE YOUR CODE ABOVE
       break;
     case "load":
@@ -132,7 +132,7 @@ async function handleCommand(command) {
       console.log('Loading data...')
       // --------> WRITE YOUR CODE BELOW
       const loadFileName = args[0];
-      studentManagementSystem.loadFromJSON(loadFileName);
+      await studentManagementSystem.loadFromJSON(loadFileName);
       console.log(studentManagementSystem.displayStudents());
       // --------> WRITE YOUR CODE ABOVE
       break;
